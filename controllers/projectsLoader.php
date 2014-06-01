@@ -1,6 +1,5 @@
 <?php
 	date_default_timezone_set('UTC');
-	require "phpMVC/services/services.php";
 
 	$devHome = "/Users/huff/development/";
 	$dhs = Array();
@@ -12,28 +11,27 @@
 	$dhs['perl'] = "{$devHome}perl/apps";
 	$dhs['ruby'] = "{$devHome}ruby/apps";
 
-	$dirs = array();
+	$dirs = Array();
 	$counter = 1;
 
-
-	foreach($dhs as $type => $dh) {
-		$dh = opendir($dh); 
+	foreach($dhs as $type => $dn) {
+		$dh = opendir($dn); 
 		
 		$size = 0;
 
 		
 		while (($name = readdir($dh)) !== false) { 
-			if (is_dir($name) && ($name != ".") && ($name != "..") && ($name != "public")) { 
+			if (is_dir($dn."/".$name) && ($name != ".") && ($name != "..") && ($name != ".metadata") && ($name != "public")) { 
 				
-				if(is_dir($name."/.git")) {
-					$gitRepo = getGit($name);
+				if(is_dir($dn."/".$name."/.git")) {
+					$gitRepo = getGit($dn."/".$name);
 				} 
 
 				$dirs[$counter]["name"] = $name;
 				$dirs[$counter]["type"] = $type;
 				$dirs[$counter]["git"] = $gitRepo;
-				$dirs[$counter]["lastModified"] = date ("F d Y H:i:s", filemtime($name));
-				$dirs[$counter]["size"] = dirsize($name);
+				$dirs[$counter]["lastModified"] = date ("m/d/y H:i:s", @filemtime($dn."/".$name));
+				$dirs[$counter]["size"] = dirsize($dn."/".$name);
 
 				$counter++;
 				$gitRepo = null;
@@ -41,9 +39,7 @@
 		} 
 		
 		closedir($dh);
-	}
-
-		 
+	} 
 
 
 	require "phpMVC/views/projects.html"
