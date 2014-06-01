@@ -1,0 +1,32 @@
+<h2 class="sub-header">All Projects</h2>
+<form>
+	<input type="text" class="form-control" placeholder="Search for a project...">
+	</form>
+<div class="table-responsive">
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>#</th>
+	      <th>Project Name</th>
+	      <th>Type</th>
+	      <th>Git Repo</th>
+	      <th>Last Modified</th>
+	      <th>Size</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+	  	<?php
+		    foreach($dirs as $number => $dir)
+			   echo  "<tr>
+				  <td>{$number}</td>
+				  <td><a href=\"/{$dir['name']}\">{$dir['name']}</a></td>
+				  <td>{$dir['type']}</td>
+				  <td>".(($dir['git']) ? "<a href=\"{$dir['git']['url']}\">".$dir['git']['name']."</a>":'not a git repo')."</td>
+				  <td>{$dir['lastModified']}</td>
+				  <td>{$dir['size']}</td>
+				</tr>";
+		?>	                
+	  
+	  </tbody>
+	</table>
