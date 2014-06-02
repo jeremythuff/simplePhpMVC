@@ -1,7 +1,32 @@
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Languages', 'Number of Projects'],
+      <?php 
+      	echo $stat['spaceTotal'] ? "['".round($stat["spaceTotal"])." mb', 1]" : "['none', 1]"; 
+      ?>
+    ]);
+
+    var options = {
+      legend: 'none',
+      chartArea:{left:'5%',top:'5%',width:'90%',height:'90%'},
+      is3D: true,
+      colors:['#500000'],
+      pieSliceText: 'label',
+      pieSliceTextStyle: {
+        fontSize: 20
+                    
+      }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('sizeStat'));
+    chart.draw(data, options);
+  }
+</script>
 <div class="col-xs-6 col-sm-3 placeholder">
-	<div class="circle">
-		<span class="stat"><?php echo $stat['spaceTotal'] ? $stat["spaceTotal"]." mb" : "0 mb"; ?></span>
-	</div>
+	<div id="sizeStat"></div>
 	<h4>Space Usage</h4>
     <span class="text-muted">Total Space Used</span>
 </div>

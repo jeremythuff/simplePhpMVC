@@ -1,7 +1,33 @@
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Languages', 'Number of Projects'],
+      <?php 
+      	echo $stat['gitTotal'] ? "['".round($stat["gitTotal"])."', 1]" : "['none', 1]"; 
+      ?>
+    ]);
+
+    var options = {
+      legend: 'none',
+      chartArea:{left:'5%',top:'5%',width:'90%',height:'90%'},
+      is3D: true,
+      colors:['#500000'],
+      pieSliceText: 'label',
+      pieSliceTextStyle: {
+      	fontSize: 20
+      		          
+      }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('gitStat'));
+    chart.draw(data, options);
+  }
+</script>
 <div class="col-xs-6 col-sm-3 placeholder">
-	<div class="circle">
-		<span class="stat"><?php echo $stat['gitTotal'] ? $stat["gitTotal"] : "None!"; ?></span>
-	</div>
+	<div id="gitStat"></div>
 	<h4>Git Repos</h4>
     <span class="text-muted">Number of Git Repositories</span>
 </div>
+	
