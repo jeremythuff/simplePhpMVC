@@ -5,7 +5,12 @@
     var data = google.visualization.arrayToDataTable([
       ['Languages', 'Number of Projects'],
       <?php 
-      	echo $stat['gitTotal'] ? "['".round($stat["gitTotal"])."', 1]" : "['none', 1]"; 
+        if($stat['gitTotal']) {
+          echo "['Git Repos', ".round($stat["gitTotal"])."],";
+          echo "['Non Git', ".(round($stat['total'])-round($stat["gitTotal"]))."]";
+        } else {
+          echo "['none', 1]"; 
+        } 
       ?>
     ]);
 
@@ -13,12 +18,8 @@
       legend: 'none',
       chartArea:{left:'5%',top:'5%',width:'90%',height:'90%'},
       is3D: true,
-      colors:['#500000'],
+      colors:['#4D349B', '#500000'],
       pieSliceText: 'label',
-      pieSliceTextStyle: {
-      	fontSize: 20
-      		          
-      }
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('gitStat'));

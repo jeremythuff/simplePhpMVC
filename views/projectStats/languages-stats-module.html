@@ -3,20 +3,20 @@
   google.setOnLoadCallback(drawChart);
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
-      ['Languages', 'Number of Projects'],
-      ['none', 1]
+      ['Languages', 'Number of Projects']
+      <?php 
+        foreach($stat['languagesTotal'] as $type => $number) {
+          echo ",['{$type}', {$number}]";
+        }
+      ?>
     ]);
 
     var options = {
       legend: 'none',
       chartArea:{left:'5%',top:'5%',width:'90%',height:'90%'},
       is3D: true,
-      colors:['#500000'],
-      pieSliceText: 'label',
-      pieSliceTextStyle: {
-        fontSize: 20
-                    
-      }
+      colors:['#500000', '#A8922A', '#4D349B', '004000'],
+      pieSliceText: 'label'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('langStat'));

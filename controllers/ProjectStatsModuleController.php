@@ -10,10 +10,11 @@
 	$dhs['perl'] = "{$devHome}perl/apps";
 	$dhs['ruby'] = "{$devHome}ruby/apps";
 
-	$stat = Array();
+	$stat = array();
 	$counter = 0;
 	$gitCounter = 0;
 	$spaceCounter = 0;
+	$languagesCounter = array();
 
 	foreach($dhs as $type => $dn) {
 
@@ -24,8 +25,10 @@
 				if(is_dir($dn."/".$name."/.git")) {
 					$gitCounter++;
 				}
-				$spaceCounter += dirsize($dn."/".$name); 
+				 
 				$counter++;
+				$spaceCounter += dirsize($dn."/".$name);
+				$languagesCounter[$type]++;
 			} 
 		} 
 		closedir($dh);
@@ -33,6 +36,7 @@
 		$stat['total'] = $counter;
 		$stat['gitTotal'] = $gitCounter;
 		$stat['spaceTotal'] = $spaceCounter;
+		$stat['languagesTotal'] = $languagesCounter;
 	}
 
 require "phpMVC/views/projectStats/total-stats-module.html"; 

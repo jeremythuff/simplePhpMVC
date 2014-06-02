@@ -5,7 +5,11 @@
     var data = google.visualization.arrayToDataTable([
       ['Languages', 'Number of Projects'],
       <?php 
-      	echo $stat['total'] ? "['".round($stat["total"])."', 1]" : "['none', 1]"; 
+        if ($stat['total']) {
+          echo "['Projects' ,".round($stat["total"])."]";
+        } else {
+          echo "['Projects', 0]";
+        }
       ?>
     ]);
 
@@ -14,10 +18,9 @@
       chartArea:{left:'5%',top:'5%',width:'90%',height:'90%'},
       is3D: true,
       colors:['#500000'],
-      pieSliceText: 'label',
+      pieSliceText: 'value',
       pieSliceTextStyle: {
-      	fontSize: 20
-      		          
+      	fontSize: 20	          
       }
     };
 

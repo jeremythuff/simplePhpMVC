@@ -13,7 +13,6 @@ function getGit($dir)
     $removeGitHost = "https://github.com/";
     $removeGroup = "/";
     $repoName = explode ( $removeGitHost , $remoteUrl[0]);
-    //$repoName = explode ( $removeGroup , $repoName[1]);
 
     $gitRepo['url'] = $remoteUrl[0].".git";
     $gitRepo['name'] = $repoName[1];
@@ -46,6 +45,17 @@ function dirsize($dir)
   }
   @closedir($dh);
   return round(($size/1000), 2)." mb";
+}
+
+function HumanSize($Bytes) {
+  $Type=array("", "kilo", "mega", "giga", "tera", "peta", "exa", "zetta", "yotta");
+  $Index=0;
+  while($Bytes>=1024)
+  {
+    $Bytes/=1024;
+    $Index++;
+  }
+  return $Bytes;
 }
 
 
