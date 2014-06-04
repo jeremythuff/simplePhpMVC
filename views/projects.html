@@ -12,6 +12,7 @@
 	      <th>Git Repo</th>
 	      <th>Last Modified</th>
 	      <th>Size</th>
+	      <th>Status</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -25,6 +26,7 @@
 				  <td>".(($dir['git']) ? "<a href=\"{$dir['git']['url']}\">".$dir['git']['name']."</a>":'not a git repo')."</td>
 				  <td>{$dir['lastModified']}</td>
 				  <td>{$dir['size']}</td>
+				  <td><button class='statusLight ". (($dir['type'] == "apache") ? "running" : "stopped" )."'></button></td>
 				</tr>";
 		?>	                
 	  
