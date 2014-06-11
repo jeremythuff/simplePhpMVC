@@ -1,9 +1,9 @@
 <h2 class="sub-header">All Projects</h2>
 <form>
-	<input type="text" class="form-control" placeholder="Search for a project...">
+	<input type="text" class="form-control projectSearch" placeholder="Search for a project...">
 	</form>
 <div class="table-responsive">
-	<table class="table table-striped">
+	<table class="table table-striped projectTable">
 	  <thead>
 	    <tr>
 	      <th>#</th>
@@ -17,18 +17,32 @@
 	  </thead>
 	  <tbody>
 
+
+	  	
+
 	  	<?php
 		    foreach($dirs as $number => $dir)
-			   echo  "<tr>
+			   echo  "<tr class=\"project ".$dir['type']."\" data-name=\"{$dir['name']}\">
 				  <td>{$number}</td>
-				  <td><a href=\"/{$dir['name']}\">{$dir['name']}</a></td>
+				  <td>
+				  	<span class=\"appOnOff appOn\"><a href=\"/{$dir['name']}\">{$dir['name']}</a></span>
+				  	<span class=\"appOnOff\">{$dir['name']}</span>
+				  </td>
 				  <td>{$dir['type']}</td>
 				  <td>".(($dir['git']) ? "<a href=\"{$dir['git']['url']}\">".$dir['git']['name']."</a>":'not a git repo')."</td>
 				  <td>{$dir['lastModified']}</td>
 				  <td>{$dir['size']}</td>
-				  <td><button class='statusLight ". (($dir['type'] == "apache") ? "running" : "stopped" )."'></button></td>
+				  <td class='statusLightCell'>
+				  		<div class=\"btn-group btn-toggle\"> 
+							<button data-type=\"danger\" class=\"btn btn-xs btn-danger active\">off</button>
+							<button data-type=\"success\" class=\"btn btn-xs btn-default\">on</button>
+						</div>
+				    </td>
 				</tr>";
 		?>	                
 	  
 	  </tbody>
 	</table>
+	<div class="loaderWrapper">
+		<img src="public/img/ajax-loader.gif" class="loaderIMG">
+	</div>
